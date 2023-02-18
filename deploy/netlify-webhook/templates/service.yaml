@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: { { include "webhook-netlify-dns.fullname" . } }
+  namespace: { { .Release.Namespace | quote } }
+  labels:
+    app: { { include "webhook-netlify-dns.name" . } }
+    chart: { { include "webhook-netlify-dns.chart" . } }
+    release: { { .Release.Name } }
+    heritage: { { .Release.Service } }
+spec:
+  type: { { .Values.service.type } }
+  ports:
+    - port: { { .Values.service.port } }
+      targetPort: https
+      protocol: TCP
+      name: https
+  selector:
+    app: { { include "webhook-netlify-dns.name" . } }
+    release: { { .Release.Name } }

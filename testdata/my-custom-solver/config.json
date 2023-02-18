@@ -1,1 +1,6 @@
-{}
+{
+    "apiKeySecretRef": {
+        "name": "netlify-api-key",
+        "key": "key"
+    }
+}
