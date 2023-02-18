@@ -35,8 +35,7 @@ build:
 
 .PHONY: rendered-manifest.yaml
 rendered-manifest.yaml:
-	helm template \
-	    --name example-webhook \
+	helm template webhook-netlify-dns \
             --set image.repository=$(IMAGE_NAME) \
             --set image.tag=$(IMAGE_TAG) \
-            deploy/example-webhook > "$(OUT)/rendered-manifest.yaml"
+            penguinoneshaw.github.io/webhook-netlify-dns > "$(OUT)/rendered-manifest.yaml"
