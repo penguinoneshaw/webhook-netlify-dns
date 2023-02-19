@@ -162,7 +162,7 @@ func (c *netlifyDNSProviderSolver) Present(ch *v1alpha1.ChallengeRequest) error 
 
 	_, err = netlify.Operations.CreateDNSRecord(
 		operations.NewCreateDNSRecordParams().WithZoneID(
-			strings.ReplaceAll(ch.ResolvedZone, ".", "_"),
+			zoneId,
 		).WithDNSRecord(record),
 		auth,
 	)
