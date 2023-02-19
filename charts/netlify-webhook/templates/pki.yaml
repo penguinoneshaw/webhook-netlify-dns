@@ -5,7 +5,7 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: {{ include "webhook-netlify-dns.selfSignedIssuer" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ .Values.certManager.namespace | quote }}
   labels:
     app: {{ include "webhook-netlify-dns.name" . }}
     chart: {{ include "webhook-netlify-dns.chart" . }}
@@ -21,7 +21,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: {{ include "webhook-netlify-dns.rootCACertificate" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ .Values.certManager.namespace | quote }}
   labels:
     app: {{ include "webhook-netlify-dns.name" . }}
     chart: {{ include "webhook-netlify-dns.chart" . }}
@@ -42,7 +42,7 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: {{ include "webhook-netlify-dns.rootCAIssuer" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ .Values.certManager.namespace | quote }}
   labels:
     app: {{ include "webhook-netlify-dns.name" . }}
     chart: {{ include "webhook-netlify-dns.chart" . }}
@@ -59,7 +59,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: {{ include "webhook-netlify-dns.servingCertificate" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ .Values.certManager.namespace | quote }}
   labels:
     app: {{ include "webhook-netlify-dns.name" . }}
     chart: {{ include "webhook-netlify-dns.chart" . }}
@@ -72,5 +72,5 @@ spec:
     name: {{ include "webhook-netlify-dns.rootCAIssuer" . }}
   dnsNames:
   - {{ include "webhook-netlify-dns.fullname" . }}
-  - {{ include "webhook-netlify-dns.fullname" . }}.{{ .Release.Namespace }}
-  - {{ include "webhook-netlify-dns.fullname" . }}.{{ .Release.Namespace }}.svc
+  - {{ include "webhook-netlify-dns.fullname" . }}.{{ .Values.certManager.namespace }}
+  - {{ include "webhook-netlify-dns.fullname" . }}.{{ .Values.certManager.namespace }}.svc

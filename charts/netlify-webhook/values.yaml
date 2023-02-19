@@ -24,6 +24,9 @@ service:
   type: ClusterIP
   port: 443
 
+features:
+  apiPriorityAndFairness: true
+
 resources:
   {}
   # We usually recommend not to specify default resources and to leave this as a conscious
