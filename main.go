@@ -149,7 +149,7 @@ func (c *netlifyDNSProviderSolver) Present(ch *v1alpha1.ChallengeRequest) error 
 	}
 	record := &models.DNSRecordCreate{
 		Type:     "TXT",
-		Hostname: ch.ResolvedFQDN,
+		Hostname: strings.TrimSuffix(strings.TrimSuffix(ch.ResolvedFQDN, zoneId), "."),
 		Value:    ch.Key,
 	}
 
@@ -193,13 +193,15 @@ func (c *netlifyDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error 
 	}
 
 	zoneId := buildZoneId(ch.ResolvedZone)
+	fqdn := strings.TrimSuffix(strings.TrimSuffix(ch.ResolvedFQDN, zoneId), ".")
+
 	zone, err := netlify.Operations.GetDNSRecords(operations.NewGetDNSRecordsParams().WithZoneID(zoneId), auth)
 	if err != nil {
 		return err
 	}
 
 	for _, existingRecord := range zone.Payload {
-		if existingRecord.Hostname == ch.ResolvedFQDN && existingRecord.Value == ch.Key {
+		if existingRecord.Hostname == fqdn && existingRecord.Value == ch.Key {
 			// Record with the correct name already exists
 			_, err := netlify.Operations.DeleteDNSRecord(
 				operations.NewDeleteDNSRecordParams().WithDNSRecordID(existingRecord.ID).WithZoneID(zoneId), auth)

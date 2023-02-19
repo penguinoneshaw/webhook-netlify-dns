@@ -131,3 +131,41 @@ subjects:
     name: {{ include "webhook-netlify-dns.fullname" . }}
     namespace: {{ .Values.certManager.namespace | quote }}
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: "{{ .Values.certManager.namespace }}:secret-access"
+  namespace: {{ .Values.certManager.namespace | quote }}
+  labels:
+    app: {{ include "webhook-netlify-dns.name" . }}
+    chart: {{ include "webhook-netlify-dns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "secrets"
+    verbs:
+      - "list"
+      - "watch"
+      - "get"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "webhook-netlify-dns.fullname" . }}:secret-access
+  namespace: {{ .Values.certManager.namespace | quote }}
+  labels:
+    app: {{ include "webhook-netlify-dns.name" . }}
+    chart: {{ include "webhook-netlify-dns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "{{ .Values.certManager.namespace }}:secret-access"
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "webhook-netlify-dns.fullname" . }}
+    namespace: {{ .Values.certManager.namespace | quote }}
