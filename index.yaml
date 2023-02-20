@@ -3,6 +3,15 @@ entries:
   webhook-netlify-dns:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2023-02-20T00:04:22.90318484Z"
+    description: A Helm chart for Kubernetes
+    digest: 201639454195d6af39faf5b43b5538c50bd4beb78114fe922eab9dbbe3e12a9e
+    name: webhook-netlify-dns
+    urls:
+    - https://github.com/penguinoneshaw/webhook-netlify-dns/releases/download/webhook-netlify-dns-0.1.7/webhook-netlify-dns-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2023-02-19T23:42:53.702669221Z"
     description: A Helm chart for Kubernetes
     digest: 6aab91985b6ef048df9f4a60bbcb273113b9fdd09c6251472c0b7a504c9ce7bd
@@ -55,4 +64,4 @@ entries:
     urls:
     - https://github.com/penguinoneshaw/webhook-netlify-dns/releases/download/webhook-netlify-dns-0.1.1/webhook-netlify-dns-0.1.1.tgz
     version: 0.1.1
-generated: "2023-02-19T23:42:53.702686921Z"
+generated: "2023-02-20T00:04:22.903225441Z"
