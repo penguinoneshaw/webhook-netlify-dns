@@ -110,7 +110,7 @@ type netlifyDNSProviderConfig struct {
 	// These fields will be set by users in the
 	// `issuer.spec.acme.dns01.providers.webhook.config` field.
 
-	//Email           string `json:"email"`
+	// The API Access token
 	APIAccesstokenSecretRef v1.SecretKeySelector `json:"apiAccessTokenSecretRef"`
 }
 
